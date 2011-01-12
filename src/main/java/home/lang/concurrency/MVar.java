@@ -1,18 +1,11 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+package home.lang.concurrency;
 
-package com.home.myutils;
-
+import home.lang.PlainTuple;
+import home.lang.functional.Lambda1A;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-/**
- *
- * @author Master
- */
 public class MVar<T extends Object> {
     protected volatile T obj = null;
     protected final Object takeMonitor = new Object();
@@ -89,7 +82,7 @@ public class MVar<T extends Object> {
 
         notifyTaker();
 
-        assert (r.first != null && r.second != null);
+        assert (r.getFirst() != null && r.getSecond() != null);
 
         return r;
     }
@@ -102,7 +95,7 @@ public class MVar<T extends Object> {
             }
         };
         PlainTuple<T, T> r = modify(la);
-        return r.first;
+        return r.getFirst();
     }
 
     public T peek() {

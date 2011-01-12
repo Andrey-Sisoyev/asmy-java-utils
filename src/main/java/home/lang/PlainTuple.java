@@ -1,15 +1,5 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+package home.lang;
 
-package com.home.myutils;
-
-// import com.home.myutils.Tuple;
-/**
- *
- * @author Master
- */
 public class PlainTuple<T1, T2> implements Tuple<T1, T2> {
     protected T1 first;
     protected T2 second;

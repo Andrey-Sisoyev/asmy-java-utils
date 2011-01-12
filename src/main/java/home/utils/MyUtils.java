@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package utils.my;
+package home.utils;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -67,7 +67,7 @@ public class MyUtils {
         return m.matches();
     }
 
-    public long sleepAtLeast(long millis) throws InterruptedException {
+    public static long sleepAtLeast(long millis) throws InterruptedException {
         long t0 = System.currentTimeMillis();
         long millisLeft = millis;
         while (millisLeft > 0) {
@@ -76,5 +76,20 @@ public class MyUtils {
             millisLeft = millis - (t1 - t0);
         }
         return millis - millisLeft;
+    }
+
+    public static <K,V> Map<K,V> entriesArray2Map(Map.Entry[] en_arr, Map<K,V> initialMap) {
+        for (Map.Entry<K, V> entry : en_arr) {
+            initialMap.put(entry.getKey(), entry.getValue());
+        }
+        return initialMap;
+    }
+
+    public static <K,V> Map<K,V> entriesArray2TreeMap(Map.Entry[] en_arr) {
+        TreeMap<K, V> initialMap = new TreeMap();
+        for (Map.Entry<K, V> entry : en_arr) {
+            initialMap.put(entry.getKey(), entry.getValue());
+        }
+        return initialMap;
     }
 }

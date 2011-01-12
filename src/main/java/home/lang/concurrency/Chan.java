@@ -1,18 +1,9 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-package com.home.myutils;
+package home.lang.concurrency;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 
-/**
- *
- * @author Master
- */
 public class Chan<T extends Object> {
     protected List<T> objList = null;
     protected final Object readMonitor = new Object();
