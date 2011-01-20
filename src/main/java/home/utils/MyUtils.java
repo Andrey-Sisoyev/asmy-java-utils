@@ -5,6 +5,8 @@
 
 package home.utils;
 
+import home.lang.ITuple;
+import home.lang.TuplesList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.ArrayList;
@@ -12,6 +14,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.Date;
 
 public class MyUtils {
     // on NULL input returns NULL
@@ -78,18 +81,28 @@ public class MyUtils {
         return millis - millisLeft;
     }
 
-    public static <K,V> Map<K,V> entriesArray2Map(Map.Entry[] en_arr, Map<K,V> initialMap) {
-        for (Map.Entry<K, V> entry : en_arr) {
-            initialMap.put(entry.getKey(), entry.getValue());
+    public static <K,V> Map<K,V> tuplesArray2Map(ITuple<K,V>[] en_arr, Map<K,V> initialMap) {
+        for (ITuple<K,V> entry : en_arr) {
+            initialMap.put(entry.getFirst(), entry.getSecond());
         }
         return initialMap;
     }
 
-    public static <K,V> Map<K,V> entriesArray2TreeMap(Map.Entry[] en_arr) {
+    public static <K,V> Map<K,V> tuplesArray2TreeMap(ITuple<K,V>[] en_arr) {
         TreeMap<K, V> initialMap = new TreeMap();
-        for (Map.Entry<K, V> entry : en_arr) {
-            initialMap.put(entry.getKey(), entry.getValue());
-        }
-        return initialMap;
+        return tuplesArray2Map(en_arr, initialMap);
     }
+
+    public static <K,V> Map<K,V> pTuplesList2Map(TuplesList<K,V> ptList, Map<K,V> initialMap) {
+        return ptList.toMap(initialMap);
+    }
+
+    public static <K,V> Map<K,V> pTuplesList2TreeMap(TuplesList<K,V> ptList) {
+        return ptList.toTreeMap();
+    }
+
+    public static Date now() {
+        return new Date(System.currentTimeMillis());
+    }
+
 }

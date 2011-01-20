@@ -1,6 +1,6 @@
 package home.lang.concurrency;
 
-import home.lang.PlainTuple;
+import home.lang.Tuple;
 import home.lang.functional.Lambda1A;
 import java.util.LinkedList;
 import java.util.List;
@@ -60,10 +60,10 @@ public class MVar<T extends Object> {
         notifyTaker();
     }
 
-    public PlainTuple<T, T> modify(Lambda1A<T, T> la) throws InterruptedException {
+    public Tuple<T, T> modify(Lambda1A<T, T> la) throws InterruptedException {
         T oldVal = null;
         T newVal = null;
-        PlainTuple<T, T> r = null;
+        Tuple<T, T> r = null;
         AtomicBoolean b = null;
 
         synchronized(takeMonitor) {
@@ -73,7 +73,7 @@ public class MVar<T extends Object> {
                 else {
                     newVal = la.reduceLambda(oldVal);
                     this.obj = newVal;
-                    r = new PlainTuple(oldVal, newVal);
+                    r = new Tuple(oldVal, newVal);
                 }
             } else b = initTakerToken();
         }
@@ -94,7 +94,7 @@ public class MVar<T extends Object> {
                 return tt;
             }
         };
-        PlainTuple<T, T> r = modify(la);
+        Tuple<T, T> r = modify(la);
         return r.getFirst();
     }
 
@@ -145,10 +145,10 @@ public class MVar<T extends Object> {
         }
     }
     
-    private PlainTuple<T, T> waitForModifierToken(AtomicBoolean b, Lambda1A<T, T> la) throws InterruptedException {
+    private Tuple<T, T> waitForModifierToken(AtomicBoolean b, Lambda1A<T, T> la) throws InterruptedException {
         T oldVal;
         T newVal;
-        PlainTuple<T, T> r;
+        Tuple<T, T> r;
         synchronized(b){
             while(! b.get()) b.wait();
         }
@@ -158,7 +158,7 @@ public class MVar<T extends Object> {
             newVal = la.reduceLambda(oldVal);
             this.obj = newVal;
         }
-        return new PlainTuple(oldVal, newVal);
+        return new Tuple(oldVal, newVal);
     }
 
     private void notifyTaker() {

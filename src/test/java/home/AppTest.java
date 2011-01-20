@@ -1,4 +1,4 @@
-package com.home.learningjava.myjavaexercises;
+package home;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
